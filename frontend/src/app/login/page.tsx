@@ -13,7 +13,7 @@ const LoginPage = () => {
     useEffect(() => {
         setIsLoading(false)
         if (token) {
-            useRouter().push("/dashboard")
+            router.push("/dashboard")
         }
         return () => {
         };

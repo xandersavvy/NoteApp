@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/JWTLoadercontext";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from 'zod'
 
@@ -20,16 +20,16 @@ const RegisterSchema = z.object({
 })
 
 export default function Register() {
-
+    const router = useRouter();
     const { token, isLoading, setToken, setIsLoading } = useAuth();
     useEffect(() => {
         setIsLoading(false)
         if (token) {
-            useRouter().push("/dashboard")
+            router.push("/dashboard")
         }
         return () => {
         };
-    }, []);
+    }, [router,token]);
 
 
     const {
@@ -60,13 +60,13 @@ export default function Register() {
                     <div>
                         <Label>Email</Label>
                         <Input type="email" placeholder="Enter your email" {...register("email")} />
-                        {formState.errors.email && <p className="text-red-500 text-sm">{formState.errors.email.message as unknown as String}</p>}
+                        {formState.errors.email && <p className="text-red-500 text-sm">{formState.errors.email.message as unknown as string}</p>}
                     </div>
 
                     <div>
                         <Label>Password</Label>
                         <Input type="password" placeholder="Enter password" {...register("password")} />
-                        {formState.errors.password && <p className="text-red-500 text-sm">{formState.errors.password.message as unknown as String}</p>}
+                        {formState.errors.password && <p className="text-red-500 text-sm">{formState.errors.password.message as unknown as string}</p>}
                     </div>
                     <Button type="submit" className="w-full" disabled={isLoading}>
                         {isLoading ? "Registering..." : "Register"}

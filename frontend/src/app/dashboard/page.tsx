@@ -5,14 +5,15 @@ import { useEffect } from "react";
 
 export default function Dashboard(){
     const { token, isLoading, setIsLoading, setToken } = useAuth();
+    const router = useRouter()
         useEffect(() => {
                 setIsLoading(false)
                 if (token) {
-                    useRouter().push("/dashboard")
+                    router.push("/dashboard")
                 }
                 return () => {
                 };
-              }, []); 
+              }, [router,token]); 
             
 
     return (<>
